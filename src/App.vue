@@ -1,15 +1,18 @@
 <script setup>
 import { ref, provide } from 'vue'
-import Header from './components/Header.vue'
-import MainContent from './pages/MainContent.vue'
+import { useTheme } from './composables/useTheme'
 
-const showNav = ref(true)
-provide('setHeaderVisible', (val) => (showHeader.value = val))
+// Gestion du thème
+const { isDark, toggleDarkMode } = useTheme()
+provide('isDark', isDark)
+provide('toggleDarkMode', toggleDarkMode)
 </script>
 
 <template>
-  <div class="bg-[#f0f7ff] text-black min-h-screen">
-    <Header :show-nav="showNav" />
-    <MainContent @hideHeader="showNav = false" @showHeader="showNav = true" />
+  <div 
+    class="min-h-screen transition-colors duration-300"
+    :class="isDark ? 'bg-[#121212] text-white' : 'bg-[#f0f7ff] text-black'"
+  >
+    <router-view />
   </div>
 </template>
