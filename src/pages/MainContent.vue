@@ -42,12 +42,12 @@ const isDark = inject('isDark', false)
 
 const categories = [
   {
-    title: 'VIENNA',
-    link: '/photography/vienna',
+    title: 'PLAGE',
+    link: '/photography/plage',
     images: [
-      'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3', // Image centrale
-      'https://images.unsplash.com/photo-1610311979714-9be2cb5b0c64?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.0.3', // Image gauche
-      'https://images.unsplash.com/photo-1688410053776-73e1e8643ec9?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.0.3'  // Image droite
+      'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3',
+      'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3',
+      'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3',
     ]
   },
   {

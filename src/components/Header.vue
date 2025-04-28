@@ -8,7 +8,7 @@
       <!-- Logo -->
       <router-link to="/" class="flex items-center transition hover:opacity-80">
         <img
-          :src="isDark ? '../../public/logo-dark.png' : '../../public/logo.png'"
+          :src="isDark ? '/logo-dark.png' : '/logo.png'"
           alt="CK Logo"
           class="h-8 sm:h-10 w-auto"
         />
