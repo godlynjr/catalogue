@@ -1,12 +1,13 @@
 <template>
   <main class="px-4 md:px-16">
     <div class="h-[300px]"></div>
-    <section class="text-center mb-12">
-      <h1 class="text-5xl font-bold tracking-widest">PHOTOGRAPHY</h1>
-    </section>
+    <div class="content flex items-center justify-center my-12 relative">
+      <h2 class="wave-text outline-text">PHOTOGRAPHY</h2>
+      <h2 class="wave-text animated-text">PHOTOGRAPHY</h2>
+    </div>
 
-    <div class="h-[100px]"></div>
-    <SpacerTrigger title="Browse Categories" @enter="hideHeader" @leave="showHeader" />
+    <div class="h-[200px]"></div>
+    <!-- <SpacerTrigger title="Browse Categories" @enter="hideHeader" @leave="showHeader" /> -->
 
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-8">
       <PhotoCategory
@@ -20,7 +21,7 @@
   </main>
 </template>
   
-  <script setup>
+<script setup>
 import { inject } from 'vue'
 import SpacerTrigger from '../components/SpacerTrigger.vue'
 import PhotoCategory from '../components/PhotoCategory.vue'
@@ -76,5 +77,75 @@ const showHeader = () => setHeaderVisible(true)
     ],
   },
 ]
-  </script>
+</script>
   
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+
+.content {
+  position: relative;
+}
+
+.wave-text {
+  position: absolute;
+  font-size: 5rem;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #000;
+}
+
+.animated-text {
+  color: #38bdf8;
+  animation: wave-animate 4s ease-in-out infinite;
+}
+
+@keyframes wave-animate {
+  0%,
+  100% {
+    clip-path: polygon(
+      0% 45%,
+      16% 44%,
+      33% 50%,
+      54% 60%,
+      70% 61%,
+      84% 59%,
+      100% 52%,
+      100% 100%,
+      0% 100%
+    );
+  }
+
+  50% {
+    clip-path: polygon(
+      0% 60%,
+      15% 65%,
+      34% 66%,
+      51% 62%,
+      67% 50%,
+      84% 45%,
+      100% 46%,
+      100% 100%,
+      0% 100%
+    );
+  }
+}
+
+@media (max-width: 768px) {
+  .wave-text {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wave-text {
+    font-size: 2rem;
+  }
+}
+</style>
