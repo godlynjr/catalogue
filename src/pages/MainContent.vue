@@ -28,7 +28,7 @@
       />
     </section>
   </main>
-  <!-- <Footer/> -->
+  <Footer/>
 </template>
 
 <script setup>
