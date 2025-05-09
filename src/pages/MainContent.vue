@@ -25,6 +25,7 @@
         :title="cat.title"
         :images="cat.images"
         :link="cat.link"
+        :slug="cat.slug"
       />
     </section>
   </main>
@@ -36,57 +37,12 @@ import { inject } from 'vue'
 import Footer from '../components/Footer.vue'
 import Header from '../components/Header.vue'
 import PhotoCategory from '../components/PhotoCategory.vue'
+import { photoCategoriesData } from '../data/photoCategoriesData.js'
 
 // Récupérer l'état du thème
 const isDark = inject('isDark', false)
+const categories = photoCategoriesData
 
-const categories = [
-  {
-    title: 'PLAGE',
-    link: '/photography/plage',
-    images: [
-      'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3',
-      'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3',
-      'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80&w=2235&auto=format&fit=crop&ixlib=rb-4.0.3',
-    ]
-  },
-  {
-    title: 'COMMERCIAL',
-    link: '/photography/commercial',
-    images: [
-      'https://images.unsplash.com/photo-1744628182969-74140b2b4637?q=80&w=2264&auto=format&fit=crop&ixlib=rb-4.0.3', // Image centrale
-      'https://images.unsplash.com/photo-1664575600850-e12556639fd5?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3', // Image gauche
-      'https://images.unsplash.com/photo-1664575600397-88e8b976d7de?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3'  // Image droite
-    ]
-  },
-  {
-    title: 'PEOPLE',
-    link: '/photography/people',
-    images: [
-      'https://images.unsplash.com/photo-1744024865056-a2623d1dd495?q=80&w=2427&auto=format&fit=crop&ixlib=rb-4.0.3', // Image centrale
-      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=2376&auto=format&fit=crop&ixlib=rb-4.0.3', // Image gauche
-      'https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=2344&auto=format&fit=crop&ixlib=rb-4.0.3'  // Image droite
-    ]
-  },
-  {
-    title: 'WEDDINGS',
-    link: '/photography/weddings',
-    images: [
-      'https://plus.unsplash.com/premium_photo-1673266633993-013acd448898?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3', // Image centrale
-      'https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3', // Image gauche
-      'https://images.unsplash.com/photo-1528429006631-8c9f3e268afd?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3'  // Image droite
-    ]
-  },
-  {
-    title: 'EVENTS',
-    link: '/photography/events',
-    images: [
-      'https://images.unsplash.com/photo-1741290728245-2643255e07b5?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3', // Image centrale
-      'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3', // Image gauche
-      'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3'  // Image droite
-    ]
-  },
-]
 </script>
   
 <style scoped>
