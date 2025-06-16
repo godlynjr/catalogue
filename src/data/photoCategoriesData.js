@@ -3,6 +3,7 @@ export const photoCategoriesData = [
     title: 'PLAGE',
     slug: 'plage',
     description: 'Découvrez nos plus belles photos de plage et l’atmosphère paisible du bord de mer.',
+    secondDescription: "Your second description...",
     images: [
       'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80',
       'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?q=80',
