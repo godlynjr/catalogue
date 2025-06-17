@@ -5,7 +5,7 @@
     :class="isDark ? 'bg-dark-primary' : 'bg-[#f0f7ff]'"
   >
     <!-- Text behind images (desktop only) -->
-    <div class="absolute inset-0 flex items-center justify-center overflow-hidden z-5 hidden md:flex">
+    <div class="absolute inset-0 items-center justify-center overflow-hidden z-5 hidden md:flex">
       <!-- Background title -->
       <h1
         ref="bgTitle"
