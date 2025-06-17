@@ -1,5 +1,8 @@
 <template>
-  <section class="bg-[#f0f7ff] py-16 md:py-24">
+  <section 
+    class="py-16 md:py-24"
+    :class="isDark ? 'bg-dark-primary' : 'bg-[#f0f7ff]'"
+  >
     <!-- Hero Introduction Image -->
     <div class="px-4 md:px-16 mb-16 md:mb-24">
       <div 
@@ -18,16 +21,27 @@
     <div class="px-4 md:px-16 mb-16 md:mb-24">
       <div class="max-w-4xl mx-auto">
         <h2 
-          class="text-4xl md:text-6xl font-bold mb-8 text-center"
+          class="text-4xl md:text-6xl font-bold mb-8 text-center transition-colors duration-300"
+          :class="isDark ? 'text-white' : 'text-black'"
           :style="{ fontFamily: 'Bebas Neue, Arial Black, sans-serif' }"
           ref="titleRef"
         >
           {{ category.title }}
         </h2>
-        <div class="text-lg md:text-xl leading-relaxed text-gray-700 text-center max-w-3xl mx-auto">
+        <div 
+          class="text-lg md:text-xl leading-relaxed text-center max-w-3xl mx-auto transition-colors duration-300"
+          :class="isDark ? 'text-gray-300' : 'text-gray-700'"
+        >
           <p ref="descriptionRef" class="typing-text">
             {{ displayedDescription }}
-            <span class="cursor" :class="{ 'blinking': displayedDescription.length > 0 && displayedDescription.length < fullDescription.length }">|</span>
+            <span 
+              class="cursor transition-colors duration-300" 
+              :class="{ 
+                'blinking': displayedDescription.length > 0 && displayedDescription.length < fullDescription.length,
+                'bg-white': isDark,
+                'bg-black': !isDark
+              }"
+            >|</span>
           </p>
         </div>
       </div>
@@ -39,7 +53,10 @@
         <div 
           v-for="(image, index) in getImageRange(1, 3)"
           :key="`grid1-${index}`"
-          class="image-card aspect-[4/5] rounded-2xl overflow-hidden shadow-xl group cursor-pointer"
+          class="image-card aspect-[4/5] rounded-2xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+          :class="[
+            isDark ? 'shadow-xl shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-xl border-white hover:border-gray-200'
+          ]"
           :style="{ animationDelay: `${index * 150}ms` }"
         >
           <img 
@@ -54,7 +71,10 @@
     <!-- Layout Block 2: Large Horizontal Image -->
     <div class="px-4 md:px-16 mb-16 md:mb-24" ref="horizontal1Ref" v-if="getImage(4)">
       <div class="w-full mx-auto">
-        <div class="w-full h-[45vh] md:h-[60vh] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer feature-image">
+        <div 
+          class="w-full h-[45vh] md:h-[60vh] rounded-3xl overflow-hidden group cursor-pointer feature-image transition-all duration-300"
+          :class="isDark ? 'shadow-2xl shadow-black/50' : 'shadow-2xl'"
+        >
           <img 
             :src="getImage(4)" 
             alt="Horizontal showcase"
@@ -68,7 +88,12 @@
     <div class="px-4 md:px-16 mb-16 md:mb-24" ref="dual1Ref" v-if="getImage(5)">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full mx-auto">
         <div class="md:col-span-2">
-          <div class="image-card aspect-[3/2] rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
+          <div 
+            class="image-card aspect-[3/2] rounded-2xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+            :class="[
+              isDark ? 'shadow-xl shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-xl border-white hover:border-gray-200'
+            ]"
+          >
             <img 
               :src="getImage(5)" 
               alt="Large dual image"
@@ -77,7 +102,12 @@
           </div>
         </div>
         <div class="md:col-span-1" v-if="getImage(6)">
-          <div class="image-card aspect-[3/4] rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
+          <div 
+            class="image-card aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+            :class="[
+              isDark ? 'shadow-xl shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-xl border-white hover:border-gray-200'
+            ]"
+          >
             <img 
               :src="getImage(6)" 
               alt="Small dual image"
@@ -94,7 +124,10 @@
         <div 
           v-for="(image, index) in getImageRange(7, 3)"
           :key="`grid2-${index}`"
-          class="image-card aspect-[4/5] rounded-2xl overflow-hidden shadow-xl group cursor-pointer"
+          class="image-card aspect-[4/5] rounded-2xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+          :class="[
+            isDark ? 'shadow-xl shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-xl border-white hover:border-gray-200'
+          ]"
           :style="{ animationDelay: `${index * 150}ms` }"
         >
           <img 
@@ -109,10 +142,20 @@
     <!-- Second Description with Bidirectional Typing Animation -->
     <div class="px-4 md:px-16 mb-16 md:mb-24" v-if="getImage(10)">
       <div class="max-w-4xl mx-auto">
-        <div class="text-lg md:text-xl leading-relaxed text-gray-700 text-center">
+        <div 
+          class="text-lg md:text-xl leading-relaxed text-center transition-colors duration-300"
+          :class="isDark ? 'text-gray-300' : 'text-gray-700'"
+        >
           <p ref="secondDescriptionRef" class="typing-text-secondary">
             {{ displayedSecondDescription }}
-            <span class="cursor" :class="{ 'blinking': displayedSecondDescription.length > 0 && displayedSecondDescription.length < fullSecondDescription.length }">|</span>
+            <span 
+              class="cursor transition-colors duration-300" 
+              :class="{ 
+                'blinking': displayedSecondDescription.length > 0 && displayedSecondDescription.length < fullSecondDescription.length,
+                'bg-white': isDark,
+                'bg-black': !isDark
+              }"
+            >|</span>
           </p>
         </div>
       </div>
@@ -121,7 +164,10 @@
     <!-- Layout Block 5: Large Horizontal Image -->
     <div class="px-4 md:px-16 mb-16 md:mb-24" ref="horizontal2Ref" v-if="getImage(10)">
       <div class="w-full mx-auto">
-        <div class="w-full h-[45vh] md:h-[60vh] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer feature-image">
+        <div 
+          class="w-full h-[45vh] md:h-[60vh] rounded-3xl overflow-hidden group cursor-pointer feature-image transition-all duration-300"
+          :class="isDark ? 'shadow-2xl shadow-black/50' : 'shadow-2xl'"
+        >
           <img 
             :src="getImage(10)" 
             alt="Second horizontal showcase"
@@ -135,7 +181,12 @@
     <div class="px-4 md:px-16 mb-16 md:mb-24" ref="dual2Ref" v-if="getImage(11)">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full mx-auto">
         <div class="md:col-span-1 md:order-1" v-if="getImage(11)">
-          <div class="image-card aspect-[3/4] rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
+          <div 
+            class="image-card aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+            :class="[
+              isDark ? 'shadow-xl shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-xl border-white hover:border-gray-200'
+            ]"
+          >
             <img 
               :src="getImage(11)" 
               alt="Small dual image 2"
@@ -144,7 +195,12 @@
           </div>
         </div>
         <div class="md:col-span-2 md:order-2" v-if="getImage(12)">
-          <div class="image-card aspect-[3/2] rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
+          <div 
+            class="image-card aspect-[3/2] rounded-2xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+            :class="[
+              isDark ? 'shadow-xl shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-xl border-white hover:border-gray-200'
+            ]"
+          >
             <img 
               :src="getImage(12)" 
               alt="Large dual image 2"
@@ -161,7 +217,10 @@
         <div 
           v-for="(image, index) in getImageRange(13, 3)"
           :key="`grid3-${index}`"
-          class="image-card aspect-[4/5] rounded-2xl overflow-hidden shadow-xl group cursor-pointer"
+          class="image-card aspect-[4/5] rounded-2xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+          :class="[
+            isDark ? 'shadow-xl shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-xl border-white hover:border-gray-200'
+          ]"
           :style="{ animationDelay: `${index * 150}ms` }"
         >
           <img 
@@ -176,7 +235,10 @@
     <!-- Layout Block 8: Large Horizontal Image -->
     <div class="px-4 md:px-16 mb-16 md:mb-24" ref="horizontal3Ref" v-if="getImage(16)">
       <div class="w-full mx-auto">
-        <div class="w-full h-[45vh] md:h-[60vh] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer feature-image">
+        <div 
+          class="w-full h-[45vh] md:h-[60vh] rounded-3xl overflow-hidden group cursor-pointer feature-image transition-all duration-300"
+          :class="isDark ? 'shadow-2xl shadow-black/50' : 'shadow-2xl'"
+        >
           <img 
             :src="getImage(16)" 
             alt="Third horizontal showcase"
@@ -192,7 +254,10 @@
         <div 
           v-for="(image, index) in getRemainingImages(17)"
           :key="`final-${index}`"
-          class="final-image aspect-square rounded-xl overflow-hidden shadow-lg group cursor-pointer"
+          class="final-image aspect-square rounded-xl overflow-hidden group cursor-pointer border-4 transition-all duration-300"
+          :class="[
+            isDark ? 'shadow-lg shadow-black/50 border-gray-700 hover:border-gray-600' : 'shadow-lg border-white hover:border-gray-200'
+          ]"
           :style="{ animationDelay: `${index * 100}ms` }"
         >
           <img 
@@ -207,11 +272,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, inject } from 'vue'
 
 const props = defineProps({
   category: { type: Object, required: true }
 })
+
+// Inject dark mode state
+const isDark = inject('isDark', false)
 
 // Refs for scroll animations
 const titleRef = ref(null)
@@ -414,7 +482,6 @@ onUnmounted(() => {
 .cursor {
   display: inline-block;
   width: 2px;
-  background-color: #000;
   margin-left: 2px;
 }
 
@@ -476,12 +543,15 @@ onUnmounted(() => {
 /* Hover effects */
 .image-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .final-image:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom dark mode shadows */
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 /* Responsive adjustments */
