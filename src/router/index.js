@@ -1,25 +1,36 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainContent from '../pages/MainContent.vue'
+import MainContent from '../pages/Photography.vue'
 import PhotoCategoryDetail from '../pages/PhotoCategoryDetail.vue'
+import NotFound from '../pages/NotFound.vue'
+import About from '../pages/About.vue'
+import HomePage from '../pages/HomePage.vue'
+import Photography from '../pages/Photography.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: MainContent
+    component: HomePage
+  },
+  {
+    path: '/photography',
+    name: 'Photography',
+    component: Photography
   },
   {
     path: '/category/:category',
     name: 'PhotoCategoryDetail',
     component: PhotoCategoryDetail
   },
-  // Optionnel : une page "404 Not Found"
+  {
+    path: '/about',
+    name: 'About',
+    component: About
+  },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: {
-      template: '<div class="p-10 text-center">Page non trouvée.</div>'
-    }
+    component: NotFound
   }
 ]
 

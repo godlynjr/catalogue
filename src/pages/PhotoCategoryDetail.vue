@@ -15,21 +15,22 @@
         <p>Catégorie non trouvée.</p>
       </section>
     </main>
-  </template>
+  <Footer/>
+</template>
   
-  <script setup>
-  import { useRoute } from 'vue-router'
-  import { photoCategoriesData } from '../data/photoCategoriesData.js'
+<script setup>
+import { useRoute } from 'vue-router'
+import { photoCategoriesData } from '../data/photoCategoriesData.js'
 import CategoryHero from '../components/CategoryHero.vue'
 import CategoryContent from '../components/CategoryContent.vue'
 import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
   
-  const route = useRoute()
-  const slug = route.params.category
-  
-  console.log('Slug trouvé :', slug)
-  const category = photoCategoriesData.find(c => c.slug.toLowerCase() === slug?.toLowerCase())
-  
-  console.log('Catégorie :', category)
-  </script>
-  
+const route = useRoute()
+const slug = route.params.category
+
+console.log('Slug trouvé :', slug)
+const category = photoCategoriesData.find(c => c.slug.toLowerCase() === slug?.toLowerCase())
+
+console.log('Catégorie :', category)
+</script>
