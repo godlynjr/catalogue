@@ -3,9 +3,6 @@
 
   <main class="relative overflow-x-hidden">
       <!-- Hero Section -->
-    <template v-if="isLargeScreen">
-        <ParticlesCanvas class="absolute inset-0 z-10 pointer-events-none" />
-    </template>
     <section class="relative w-full h-screen overflow-hidden">
       <video autoplay muted loop class="absolute w-full h-full object-cover">
         <source src="/videos.mp4" type="video/mp4" />
@@ -48,27 +45,10 @@
         </div>
       </div>
     </section>
-
-    <!-- Team & Vision -->
-    <section class="bg-gray-100 dark:bg-gray-900 py-20 px-6 md:px-16 relative">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="gsap-fade-left">
-          <h2 class="text-3xl md:text-5xl font-bold mb-4">Our Vision</h2>
-          <p class="text-gray-700 dark:text-gray-300 mb-6">
-            Since early 2025, Yannick and Godlyn bring their passion to life. Yannick leads photography, Godlyn leads design and video, creating immersive experiences.
-          </p>
-          <p class="text-gray-700 dark:text-gray-300">Services: 360° videos, web, apps, hyperlapse, photography.</p>
-        </div>
-        <div class="flex flex-col gap-6 gsap-fade-right">
-          <img src="" alt="Yannick" class="rounded-xl shadow-lg"/>
-          <img src="" alt="Godlyn" class="rounded-xl shadow-lg"/>
-        </div>
-      </div>
-    </section>
   </main>
 
   <Footer />
-  <CustomCursor />
+  <CustomCursor v-if="isLargeScreen" />
 </template>
 
 <script setup>
@@ -77,7 +57,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
-import ParticlesCanvas from '../components/ParticlesCanvas.vue'
 import CustomCursor from '../components/CustomCursor.vue'
 
 const isLargeScreen = ref(false)
