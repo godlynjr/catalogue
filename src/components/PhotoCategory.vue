@@ -36,14 +36,14 @@
   </router-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { inject } from 'vue'
 
-const props = defineProps({
-  title: String,
-  images: Array,
-  slug: String,
-})
+const props = defineProps<{
+  title: string;
+  images: string[];
+  slug: string;
+}>()
 
 const isDark = inject('isDark', false)
 </script>

@@ -19,7 +19,7 @@
     <section class="grid md:grid-cols-2 gap-12 items-center mb-20">
       <div>
         <img 
-          src="" 
+          src="/images/hero_bg.png" 
           alt="Yannick the Photographer" 
           class="rounded-2xl shadow-lg w-full object-cover aspect-[4/3]"
         />
@@ -43,7 +43,7 @@
       </div>
       <div class="order-1 md:order-2">
         <img 
-          src="" 
+          src="/images/photo-category.jpg" 
           alt="Godlyn the Director" 
           class="rounded-2xl shadow-lg w-full object-cover aspect-[4/3]"
         />
@@ -78,7 +78,7 @@
   <Footer />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { inject } from 'vue'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'

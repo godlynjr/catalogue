@@ -4,8 +4,9 @@
   <main class="relative overflow-x-hidden">
       <!-- Hero Section -->
     <section class="relative w-full h-screen overflow-hidden">
-      <video autoplay muted loop class="absolute w-full h-full object-cover">
+      <video autoplay muted loop playsinline class="absolute w-full h-full object-cover">
         <source src="/videos.mp4" type="video/mp4" />
+        <img src="/images/hero_bg.png" alt="Hero background fallback" class="absolute w-full h-full object-cover" />
       </video>
 
       <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
@@ -22,15 +23,23 @@
     </section>
 
     <!-- Services / Categories -->
-    <section class="py-20 px-6 md:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative">
-      <div v-for="cat in categories" :key="cat.title" class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer transform transition-transform duration-500 gsap-fade-scale">
+    <section v-if="!loadingCategories" class="py-20 px-6 md:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative">
+      <router-link 
+        v-for="cat in categories" 
+        :key="cat.title" 
+        :to="`/category/${cat.slug}`"
+        class="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer transform transition-transform duration-500 gsap-fade-scale"
+      >
         <video v-if="cat.video" :src="cat.video" autoplay muted loop class="absolute w-full h-full object-cover group-hover:opacity-100 opacity-0 transition-opacity duration-500"></video>
         <img :src="cat.image" alt="" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"/>
         <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <h3 class="text-white font-bold text-2xl">{{ cat.title }}</h3>
+          <h3 class="text-white font-bold text-2xl uppercase tracking-widest">{{ cat.title }}</h3>
         </div>
-      </div>
+      </router-link>
     </section>
+    <div v-else class="flex flex-col items-center justify-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-current mb-4"></div>
+    </div>
 
     <!-- Portfolio / Reel -->
     <section class="py-20 px-6 md:px-16 relative">
@@ -51,13 +60,15 @@
   <CustomCursor v-if="isLargeScreen" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted,onBeforeUnmount } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 import CustomCursor from '../components/CustomCursor.vue'
+import { fetchPhotographyCategories, urlFor } from '../lib/sanity'
+import { photoCategoriesData } from '../data/photoCategoriesData'
 
 const isLargeScreen = ref(false)
 
@@ -77,10 +88,45 @@ onBeforeUnmount(() => {
 gsap.registerPlugin(ScrollTrigger)
 
 const heroText = 'PHOTOGRAPHY'
-const heroLetters = ref([])
+const heroLetters = ref<string[]>([])
+const loadingCategories = ref(true)
 
-onMounted(() => {
+onMounted(async () => {
   heroLetters.value = heroText.split('')
+  
+  try {
+    const data = await fetchPhotographyCategories()
+    if (data && data.length > 0) {
+      // Map Sanity photography to our internal Home category format
+      categories.value = data.map((item: any) => ({
+        title: item.title,
+        slug: item.slug,
+        image: item.mainImage 
+          ? urlFor(item.mainImage).width(800).auto('format').url()
+          : item.images?.[0] 
+            ? urlFor(item.images[0]).width(800).auto('format').url()
+            : '/images/photo-category.jpg',
+        video: undefined
+      }))
+    } else {
+      // Fallback to static data if Sanity is empty
+      categories.value = photoCategoriesData.map(item => ({
+        ...item,
+        image: item.images[0],
+        video: undefined
+      }))
+    }
+  } catch (err) {
+    console.error('Error fetching home categories:', err)
+    // Fallback on error
+    categories.value = photoCategoriesData.map(item => ({
+      ...item,
+      image: item.images[0],
+      video: undefined
+    }))
+  } finally {
+    loadingCategories.value = false
+  }
 
   // Animate hero letters
   gsap.to('.gsap-reveal', {
@@ -92,7 +138,7 @@ onMounted(() => {
   })
 
   // Animate scroll elements
-  gsap.utils.toArray('.gsap-fade').forEach(el => {
+  gsap.utils.toArray<HTMLElement>('.gsap-fade').forEach(el => {
     gsap.from(el, {
       scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
       opacity: 0,
@@ -102,7 +148,7 @@ onMounted(() => {
     })
   })
 
-  gsap.utils.toArray('.gsap-fade-scale').forEach(el => {
+  gsap.utils.toArray<HTMLElement>('.gsap-fade-scale').forEach(el => {
     gsap.from(el, {
       scrollTrigger: { trigger: el, start: 'top 90%' },
       opacity: 0,
@@ -113,7 +159,7 @@ onMounted(() => {
     })
   })
 
-  gsap.utils.toArray('.gsap-fade-left').forEach(el => {
+  gsap.utils.toArray<HTMLElement>('.gsap-fade-left').forEach(el => {
     gsap.from(el, {
       scrollTrigger: { trigger: el, start: 'top 85%' },
       opacity: 0,
@@ -123,7 +169,7 @@ onMounted(() => {
     })
   })
 
-  gsap.utils.toArray('.gsap-fade-right').forEach(el => {
+  gsap.utils.toArray<HTMLElement>('.gsap-fade-right').forEach(el => {
     gsap.from(el, {
       scrollTrigger: { trigger: el, start: 'top 85%' },
       opacity: 0,
@@ -134,15 +180,15 @@ onMounted(() => {
   })
 })
 
-const categories = [
-  { title: 'Photography', image: '/images/photo-category.jpg', video: '/videos/photo-preview.mp4' },
-  { title: '360° Video', image: '/images/360-video.jpg', video: '/videos/360-preview.mp4' },
-  { title: 'Web', image: '/images/web.jpg' },
-  { title: 'Dev', image: '/images/dev.jpg' },
-  { title: 'Hyperlapse', image: '/images/hyperlapse.jpg' },
-]
+interface Category {
+  title: string;
+  image: string;
+  video?: string;
+}
 
-const portfolio = [
+const categories = ref<Category[]>([])
+
+const portfolio: Category[] = [
   { title: 'Project 1', image: '/images/portfolio1.jpg', video: '/videos/project1.mp4' },
   { title: 'Project 2', image: '/images/portfolio2.jpg', video: '/videos/project2.mp4' },
   { title: 'Project 3', image: '/images/portfolio3.jpg' },

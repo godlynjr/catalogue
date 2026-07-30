@@ -1,12 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import MainContent from '../pages/Photography.vue'
-import PhotoCategoryDetail from '../pages/PhotoCategoryDetail.vue'
-import NotFound from '../pages/NotFound.vue'
-import About from '../pages/About.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 import Photography from '../pages/Photography.vue'
+import PhotoCategoryDetail from '../pages/PhotoCategoryDetail.vue'
+import About from '../pages/About.vue'
+import NotFound from '../pages/NotFound.vue'
+// Placeholder components for Video and Design (to be created)
+const Video = () => import('../pages/Video.vue')
+const Design = () => import('../pages/Design.vue')
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
@@ -16,6 +18,16 @@ const routes = [
     path: '/photography',
     name: 'Photography',
     component: Photography
+  },
+  {
+    path: '/video',
+    name: 'Video',
+    component: Video
+  },
+  {
+    path: '/design',
+    name: 'Design',
+    component: Design
   },
   {
     path: '/category/:category',

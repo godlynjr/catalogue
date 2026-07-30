@@ -114,23 +114,23 @@
   </section>
 </template>
 
-<script setup>
-import { ref, computed, onMounted, onUnmounted, inject } from 'vue'
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted, inject, type Ref } from 'vue'
 
-const props = defineProps({
-  title: { type: String, required: true },
-  images: { type: Array, required: true }
-})
+const props = defineProps<{
+  title: string;
+  images: string[];
+}>()
 
-const isDark = inject('isDark', false)
+const isDark = inject<Ref<boolean>>('isDark', ref(false))
 
 // Refs
-const heroSection = ref(null)
+const heroSection = ref<HTMLElement | null>(null)
 
 // Scroll progress (0 = top, 1 = scrolled past the section)
 const scrollProgress = ref(0)
 
-const calculateBaseFontSize = (text) => {
+const calculateBaseFontSize = (text: string) => {
   const len = text?.length || 0
   if (len <= 4) return 28
   if (len <= 6) return 24

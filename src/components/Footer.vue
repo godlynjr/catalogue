@@ -8,7 +8,7 @@
       <div class="flex flex-col items-start space-y-4">
         <router-link to="/" class="flex items-center gap-2 hover:opacity-80 transition">
           <img src="/logo.png" alt="Logo" class="h-8 w-auto" />
-          <span class="text-lg font-semibold text-white tracking-wide">Nami</span>
+          <span class="text-lg font-semibold text-white tracking-wide">Yugen</span>
         </router-link>
         <p class="text-sm text-gray-400 max-w-xs leading-relaxed">
           Crafting timeless visuals through travel, photography, and design.
@@ -54,19 +54,18 @@
     <!-- Bottom bar -->
     <div class="border-t border-neutral-800 mt-8">
       <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500">
-        <p>© {{ new Date().getFullYear() }} Nami. All rights reserved.</p>
-        <p class="mt-2 sm:mt-0">Made with ❤️ by Godlyn KIKISSAGBE</p>
+        <p>© {{ new Date().getFullYear() }} Yugen. All rights reserved.</p>
+        <p class="mt-2 sm:mt-0">Made with ❤️ by Godlyn</p>
       </div>
     </div>
   </footer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Instagram, Linkedin, Youtube } from 'lucide-vue-next'
 
 const links = [
   { text: 'Home', to: '/' },
-  { text: 'Travel', to: '/travel' },
   { text: 'Photography', to: '/photography' },
   { text: 'Video', to: '/video' },
   { text: 'Design', to: '/design' },

@@ -29,7 +29,7 @@
 
       <!-- Hamburger button -->
       <button v-if="!menuOpen" @click="toggleMenu" class="z-50 hover:scale-110 transition duration-300">
-        <svg class="w-8 h-8 sm:w-10 sm:h-10" :class="isDark ? 'text-white' : 'text-black'" fill="none" stroke="currentColor">
+        <svg class="w-10 h-10" :class="isDark ? 'text-white' : 'text-black'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -56,8 +56,8 @@
           >
             <div class="relative h-full px-6 sm:px-8 lg:px-16 xl:px-24 py-8 sm:py-10">
               <!-- Close button -->
-              <button @click="toggleMenu" class="absolute top-7 right-6 sm:right-8 lg:right-16 xl:right-24 z-[1000] hover:scale-110 transition duration-300">
-                <svg class="w-8 h-8" :class="isDark ? 'text-white' : 'text-black'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <button @click="toggleMenu" class="absolute top-11 right-4 md:right-6 z-[1000] hover:scale-110 transition duration-300">
+                <svg class="w-10 h-10" :class="isDark ? 'text-white' : 'text-black'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -209,8 +209,8 @@
   </header>
 </template>
 
-<script setup>
-import { ref, watch, onMounted, onBeforeUnmount, inject, computed } from 'vue'
+<script setup lang="ts">
+import { ref, watch, onMounted, onBeforeUnmount, inject, computed, type Ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import FancyLink from './FancyLink.vue'
 
@@ -219,8 +219,8 @@ defineProps({
 })
 
 // Get theme functions
-const isDark = inject('isDark')
-const toggleDarkMode = inject('toggleDarkMode')
+const isDark = inject<Ref<boolean>>('isDark', ref(false))
+const toggleDarkMode = inject<() => void>('toggleDarkMode', () => {})
 
 const router = useRouter()
 const route = useRoute()
@@ -228,7 +228,7 @@ const menuOpen = ref(false)
 const isClosingPanel = ref(false)
 
 // Check if current route matches navigation item
-const isCurrentRoute = (to) => {
+const isCurrentRoute = (to: string) => {
   return route.path === to || (to !== '/' && route.path.startsWith(to))
 }
 
@@ -286,7 +286,6 @@ onBeforeUnmount(() => {
 })
 
 const navItems = [
-  { text: 'Travel', to: '/travel' },
   { text: 'Photography', to: '/photography' },
   { text: 'Video', to: '/video' },
   { text: 'Design', to: '/design' },
